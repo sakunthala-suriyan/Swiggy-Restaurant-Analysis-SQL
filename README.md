@@ -49,7 +49,8 @@ Using **SQLite** and **DB Browser for SQLite**, raw unstructured delivery data w
 
 🔍 Key SQL Queries & Business
 Questions1. Geographic Footprint (Top Cities by Order Volume)
-Identifies top cities with the highest volume of listed menu items and orders
+Identifies top cities with the highest volume of listed menu items and orders.
+
 SELECT city, COUNT(*) AS total_orders
 FROM swiggy_orders
 GROUP BY city
@@ -58,6 +59,7 @@ LIMIT 10;
 
 2. Popular Food Categories
 Finds the most frequently ordered food categories across India.
+
 SELECT category, COUNT(*) AS category_count
 FROM swiggy_orders
 GROUP BY category
@@ -66,6 +68,7 @@ LIMIT 10;
 
 3. Premium Menu Analysis
 Identifies the top 10 highest-priced items listed across all restaurants.
+
 SELECT restaurant_name, location, city, dish_name, category, price
 FROM swiggy_orders
 ORDER BY price DESC
@@ -73,6 +76,7 @@ LIMIT 10;
 
 4. Quality & Satisfaction Tiers
 Filters top-rated dishes with significant customer feedback ($\ge 4.5$ rating and $> 50$ ratings).
+
 SELECT restaurant_name, city, dish_name, category, rating, rating_count
 FROM swiggy_orders
 WHERE rating >= 4.5 AND rating_count > 50
@@ -81,6 +85,7 @@ LIMIT 10;
 
 5. Regional Pricing Benchmarks
 Compares average dish pricing across major cities with over 100 listings using HAVING.
+
 SELECT city, 
 ROUND(AVG(price), 2) AS avg_dish_price,
 COUNT(*) AS total_items
@@ -93,6 +98,7 @@ LIMIT 10;
 
 6. Chain Expansion Metrics
 Uncovers the largest restaurant chains based on unique location footprints and multi-city presence.
+
 SELECT restaurant_name, 
 COUNT(DISTINCT location) AS unique_locations,
 COUNT(DISTINCT city) AS cities_present,
@@ -104,6 +110,7 @@ LIMIT 10;
 
 7. Regional Category Breakdown
 Examines cuisine category popularity across key metropolitan hubs.
+
 SELECT city, category, COUNT(*) AS dish_count
 FROM swiggy_orders
 WHERE city IN ('Bengaluru', 'Mumbai', 'New Delhi', 'Hyderabad')
@@ -112,6 +119,7 @@ ORDER BY city, dish_count DESC;
 
 8. Price vs. Rating Satisfaction
 Evaluates average pricing against customer ratings across food categories.
+
 SELECT category, 
 COUNT(*) AS total_items,
 ROUND(AVG(price), 2) AS avg_price,
